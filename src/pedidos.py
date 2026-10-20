@@ -42,9 +42,9 @@ def processar_pedido(itens, estoque, desconto_percentual=0):
     for item in itens:
         subtotal += item['preco_centavos'] * item['quantidade']
     desconto = 0
-    if subtotal > 10000:
-        desconto = round(subtotal * desconto_percentual / 100)
+    if subtotal >= 10000:
+        desconto = subtotal* desconto_percentual // 100
     apos_desconto = subtotal - desconto
-    frete = 0 if subtotal >= 15000 else 1500
+    frete = 0 if apos_desconto >= 15000 else 1500
     return {'subtotal_centavos': subtotal, 'desconto_centavos': desconto,
             'frete_centavos': frete, 'total_centavos': apos_desconto + frete}
